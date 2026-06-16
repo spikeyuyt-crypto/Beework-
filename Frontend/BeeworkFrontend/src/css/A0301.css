@@ -1,0 +1,430 @@
+/* ==========================================================================
+   1. 全局设计系统与入场动画
+   ========================================================================== */
+:root {
+  --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --primary-hover-gradient: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger-color: #f43f5e;
+  
+  --bg-color: #f1f5f9;            
+  --card-bg: #ffffff;
+  --text-main: #0f172a;           
+  --text-muted: #64748b;          
+  --border-color: #e2e8f0;
+  
+  --radius-md: 8px; /* 稍微缩小圆角，更适合传统紧凑表格 */
+  --radius-lg: 12px;
+  --transition-smooth: all 0.2s ease;
+  
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05);
+  --shadow-focus: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans CJK JP", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  padding: 1.5rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+/* ==========================================================================
+   2. 页面大标题
+   ========================================================================== */
+.page-title {
+  margin-bottom: 1.5rem;
+}
+
+.page-title h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+  display: inline-block;
+}
+
+.page-title hr {
+  border: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--border-color) 50%, rgba(226, 232, 240, 0) 100%);
+}
+
+/* ==========================================================================
+   3. 搜索区域与通用非表格按钮
+   ========================================================================== */
+.page-title + div {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center; 
+}
+
+.page-title + div h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  position: relative;
+  padding-left: 0.75rem;
+  align-self: flex-start; 
+}
+
+.page-title + div h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 4px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+
+/* 核心父容器 */
+.inputTxT {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;                
+  justify-content: center;        
+  align-items: center;
+  gap: 1.5rem;                    
+  width: 100%;
+}
+
+/* 换行后的按钮独立区域 */
+.buttonGroup {
+  display: flex;
+  justify-content: center; 
+  gap: 0.75rem;
+  min-width: 100%; 
+  margin-top: 0.5rem;
+}
+
+/* 核心子容器 */
+.textInput {
+  display: inline-flex !important; 
+  flex-direction: row !important;  
+  align-items: center;
+  flex: 0 1 auto;                  
+  width: auto !important;          
+  gap: 0.5rem;                     
+}
+
+.textInput label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;             
+  margin: 0;
+  display: inline-block;
+}
+
+.textInput input {
+  height: 36px;
+  width: 140px;                    
+  padding: 0 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: #f8fafc;
+  transition: var(--transition-smooth);
+  display: inline-block;
+}
+
+.textInput input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow-focus);
+}
+
+/* ==========================================================================
+   4. 数据区块与原生紧凑表格
+   ========================================================================== */
+.dataDiv {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+#div3 {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse; 
+  text-align: left;
+}
+
+table thead {
+  display: table-header-group; 
+  background-color: #f8fafc; 
+}
+
+table thead tr {
+  display: table-row;
+}
+
+table th {
+  display: table-cell;
+  padding: 0.6rem 0.75rem; 
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border-color);
+}
+
+table tbody {
+  display: table-row-group;
+}
+
+table tbody tr {
+  display: table-row;
+  transition: var(--transition-smooth);
+}
+
+table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+table td {
+  display: table-cell;
+  padding: 0.5rem 0.75rem; 
+  font-size: 0.9rem;
+  color: var(--text-main);
+  border-bottom: 1px solid #f1f5f9; 
+  vertical-align: middle;
+}
+
+table th:last-child,
+table td:last-child {
+  text-align: right;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  accent-color: var(--primary-color);
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   5. 操作按钮基础样式与要求变更
+   ========================================================================== */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* 顶部/底部非表格的普通次要按钮（如批量操作、未激活的分页按钮） */
+.buttonType0 {
+  height: 32px;
+  padding: 0 0.75rem;
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+/* 【要求1】统一检索与清空按钮样式 */
+#searchButton, 
+#clearButton {
+  height: 36px;
+  padding: 0 1.25rem;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+}
+
+/* 【要求2】全网页“非表格按钮”的 Hover 样式 —— 优雅的反色/加深效果 */
+/* 2a. 原本就是深色/渐变色的按钮，悬浮时变为更深的渐变反差 */
+#searchButton:hover,
+#clearButton:hover,
+#pageButtonsArea .buttonType0.activePage:hover,
+#jumpToPage:hover {
+  background: var(--primary-hover-gradient);
+  color: #ffffff;
+}
+
+/* 2b. 原本是浅灰色/白底的按钮（如批量操作、普通页码），悬浮时反色为深色背景 + 白字 */
+.buttonType0:not(disabled):hover,
+#pageButtonsArea .buttonType0:not(.activePage):not(:disabled):hover {
+  background-color: var(--text-main) !important;
+  color: #ffffff !important;
+  border-color: var(--text-main) !important;
+}
+
+/* 保持禁用状态按钮的固有样式，不参与 hover 反色 */
+.buttonType2, 
+button:disabled,
+.buttonType0:disabled {
+  background-color: #f8fafc !important;
+  color: #cbd5e1 !important;
+  cursor: not-allowed !important;
+}
+
+/* --------------------------------------------------------------------------
+   表格内部的行内按钮（保持你原本的独立高亮反馈，不属于外部大按钮范畴）
+   -------------------------------------------------------------------------- */
+td .buttonType0 {
+  height: 26px; 
+  padding: 0 0.6rem;
+  font-size: 0.75rem;
+  margin-right: 0.25rem;
+  background-color: transparent !important; /* 隔绝外部的整体反色 */
+  color: #475569 !important;
+  border: 1px solid var(--border-color) !important;
+}
+td .buttonType0:last-child { margin-right: 0; }
+
+#updateButton:hover { background-color: #eff6ff !important; border-color: #bfdbfe !important; color: var(--primary-color) !important; }
+#lockButton:hover { background-color: #fffbeb !important; border-color: #fde68a !important; color: #d97706 !important; }
+#deleteButton:hover { background-color: #fff1f2 !important; border-color: #fecdd3 !important; color: var(--danger-color) !important; }
+
+
+/* ==========================================================================
+   6. 底部分页控制区域与 Input 强制缩短方案
+   ========================================================================== */
+.bottomBar {
+  padding: 0.75rem 1rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.bottomBar select {
+  height: 30px;
+  padding: 0 1.5rem 0 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.4rem center;
+  background-size: 0.75rem;
+}
+
+#totalItems {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+#pageButtonsArea {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+#pageButtonsArea .buttonType0 {
+  height: 30px;
+  min-width: 30px;
+  padding: 0;
+  background-color: white;
+  border: 1px solid var(--border-color);
+}
+
+#pageButtonsArea .buttonType0.activePage {
+  background: var(--primary-gradient);
+  border: none;
+  color: white;
+}
+
+/* 确定按钮 */
+#jumpToPage {
+  height: 30px;
+  padding: 0 0.75rem;
+  margin-left: 0.25rem;
+  background: var(--primary-gradient);
+  color: white;
+}
+
+/* 彻底解决 input 缩短失效：提高特异性，同时从根源上斩断 .textInput 的 140px 继承 */
+#jumpToPageInput {
+  display: inline-flex !important;
+  width: auto !important;
+  max-width: 45px !important; 
+  flex: none !important;
+  margin: 0 0.25rem;
+}
+
+/* 通过多层包裹选择器阻断通用 input 的影响 */
+.bottomBar #jumpToPageInput input,
+div#jumpToPageInput input,
+#jumpToPageInput input {
+  width: 40px !important;       /* 成功缩短到 40px 左右 */
+  max-width: 40px !important;   
+  min-width: 0 !important;      /* 核心：打破浏览器的原生最小宽度限制 */
+  height: 30px !important;
+  
+  text-align: center;
+  padding: 0 !important;        
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: #ffffff;
+}
+
+/* 隐藏 Chrome/Safari 数字输入框自带的上下小箭头 */
+#jumpToPageInput input::-webkit-outer-spin-button,
+#jumpToPageInput input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* 火狐浏览器隐藏小箭头 */
+#jumpToPageInput input[type="number"] {
+  -moz-appearance: textfield;
+}
