@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.beeworkreactverbackend.mapper.UserTblMapper">
+
+    <select id="getAdminUserList" resultType="com.example.beeworkreactverbackend.entity.UserTblEntity">
+        SELECT USER_CD, COMPANY_ID, AUTHORITY, SEX, USER_TEL, USER_MAIL, 
+               PHOTO_ADDRESS, USER_STATUS, UPDATE_TIME, LAST_NAME, FIRST_NAME
+        FROM USER_TBL
+        WHERE DEL_FLG = '0'
+          AND (
+              AUTHORITY IN ('21', '31')
+              OR (AUTHORITY = '11' AND #{form.authority} = '00')
+          )
+        <if test="form.userName != null and form.userName != ''">
+            AND CONCAT(IFNULL(LAST_NAME,''), IFNULL(FIRST_NAME,'')) LIKE CONCAT('%', #{form.userName}, '%')
+        </if>
+        <if test="form.userMail != null and form.userMail != ''">
+            AND USER_MAIL LIKE CONCAT('%', #{form.userMail}, '%')
+        </if>
+        <if test="form.userTel != null and form.userTel != ''">
+            AND USER_TEL LIKE CONCAT('%', #{form.userTel}, '%')
+        </if>
+        ORDER BY UPDATE_TIME DESC
+    </select>
+
+</mapper>
