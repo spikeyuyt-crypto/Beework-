@@ -6,7 +6,7 @@ data class ResultResponse(
     var data: Any? = null,
 ) {
     companion object {
-        fun success(msg: String, data: Any?): ResultResponse =
+        fun success(msg: String, data: Any? = null): ResultResponse =
             ResultResponse(code = 200, message = msg, data = data)
 
         fun error(code: Int, msg: String): ResultResponse =

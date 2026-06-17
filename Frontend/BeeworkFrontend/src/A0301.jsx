@@ -91,7 +91,6 @@ export default function A0301() {
     // 更新页码列表
     const getPageNumbers = () => {
         const list = [];
-
         if (totalPages <= 7) {
             for (let i = 1; i <= totalPages; i += 1) {
                 list.push(i);
@@ -103,7 +102,6 @@ export default function A0301() {
         } else {
             list.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
         }
-
         return list;
     };
 
@@ -130,7 +128,6 @@ export default function A0301() {
                 userMail: currentForm.mail,
                 userTel: currentForm.tel,
             });
-
             console.log("backend response:", res.data);
             applySearchResult(res);
         } catch (e) {
@@ -169,7 +166,6 @@ export default function A0301() {
     // 点击页码跳转
     const handlePageButtonClick = (page) => {
         if (page === "..." || totalPages === 0) return;
-
         if (page === "<") {
             setCurrentPage((prev) => Math.max(prev - 1, 1));
         } else if (page === ">") {
@@ -182,12 +178,10 @@ export default function A0301() {
     // 输入页码跳转
     const handleJump = () => {
         const targetPage = Number(inputPage);
-
         if (!targetPage || targetPage < 1 || targetPage > totalPages) {
             alert(`1から${totalPages}の間で有効なページ番号を入力してください。`);
             return;
         }
-
         setCurrentPage(targetPage);
         setInputPage("");
     };
@@ -195,7 +189,6 @@ export default function A0301() {
     // 初始加载时获取数据
     useEffect(() => {
         let isMounted = true;
-
         axios
             .post("http://localhost:8080/adminList/search", {
                 authority: "0",
@@ -212,7 +205,6 @@ export default function A0301() {
             .catch((e) => {
                 console.log("request failed:", e);
             });
-
         return () => {
             isMounted = false;
         };
@@ -225,14 +217,39 @@ export default function A0301() {
                 searchData();
             }
         };
-
         window.addEventListener("keydown", handleKeyDown);
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [searchData]);
 
-    // 返回组件
+    const handleDelete = (userIDList) => {
+        axios
+            .put("http://localhost:8080/adminList/userDelete", {
+                userIDList: userIDList,
+            })
+            .then((res) => {
+                console.log("backend response:", res.data);
+
+                alert(`${res.data.data}件削除しました。`);
+                searchData();
+            })
+            .catch((e) => {
+                console.log("request failed:", e);
+            });
+
+    };
+
+    const handleMultiDelete = () => {
+        handleDelete(checkedList);
+    }
+
+
+    const handleSingleDelete = (userId) => {
+        handleDelete([userId]);
+    }
+
+    //# region 返回页面元素
     return (
         <div className="a0301">
             <div className="page-title">
@@ -336,7 +353,7 @@ export default function A0301() {
                                                 className="buttonType0"
                                                 id="updateButton"
                                                 onClick={() => {
-                                                    navigate(`/A0303/${adminId}`, { state: {authority: authority,adminId: adminId } });
+                                                    navigate(`/A0303/${adminId}`, { state: { authority: authority, adminId: adminId } });
                                                 }}
                                             >
                                                 情報修正
@@ -344,7 +361,7 @@ export default function A0301() {
                                             <button className="buttonType0" id="lockButton">
                                                 ロック
                                             </button>
-                                            <button className="buttonType0" id="deleteButton">
+                                            <button className="buttonType0" id="deleteButton" onClick={() => handleSingleDelete(adminId)}>
                                                 削除
                                             </button>
                                         </td>
@@ -366,7 +383,9 @@ export default function A0301() {
                     </button>
                     <button className="buttonType0">ロック</button>
                     <button className="buttonType0">アンロック</button>
-                    <button className="buttonType0">削除</button>
+                    <button className="buttonType0"
+                        onClick={handleMultiDelete}
+                    >削除</button>
                 </div>
 
                 <div className="bottomBar">
@@ -441,3 +460,4 @@ export default function A0301() {
         </div>
     );
 }
+//#endregion

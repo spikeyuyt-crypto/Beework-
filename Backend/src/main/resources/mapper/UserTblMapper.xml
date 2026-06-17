@@ -25,4 +25,11 @@
         ORDER BY UPDATE_TIME DESC
     </select>
 
+    <update id="userDelete">
+        UPDATE USER_TBL
+        SET DEL_FLG = '1',
+        UPDATE_TIME = CURRENT_TIMESTAMP(0),
+        UPDATE_BY = 'SYSTEM'
+        WHERE USER_CD IN ${userIDs}
+    </update>
 </mapper>

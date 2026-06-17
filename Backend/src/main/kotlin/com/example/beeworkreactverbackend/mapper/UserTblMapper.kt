@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Param
 @Mapper
 interface UserTblMapper {
     fun getAdminUserList(@Param("form") form: A0301VueForm): List<UserTblEntity>
+    fun userDelete(@Param("userIDs") userIDs: String): Int
 }
