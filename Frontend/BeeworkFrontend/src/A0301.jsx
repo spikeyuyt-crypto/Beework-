@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import "./css/A0301.css";
+import { useNavigate } from "react-router-dom";
 
 const emptyForm = {
     kname: "",
@@ -60,6 +60,7 @@ const formatAuthority = (value) => {
 };
 
 export default function A0301() {
+    // 状态定义
     const [allData, setAllData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [total, setTotal] = useState(0);
@@ -68,6 +69,7 @@ export default function A0301() {
     const [checkedList, setCheckedList] = useState([]);
     const [inputPage, setInputPage] = useState("");
 
+    // 计算分页
     const totalPages = Math.ceil(total / pageSize);
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
@@ -75,10 +77,18 @@ export default function A0301() {
         () => allData.slice(startIndex, endIndex),
         [allData, startIndex, endIndex],
     );
+
+
+    const navigate = useNavigate();
+
+    const authority = "管理者";
+
+    // 当前页是否全选
     const isAllCurrentPageChecked =
         currentPageData.length > 0 &&
         currentPageData.every((admin, index) => checkedList.includes(getAdminId(admin, startIndex + index)));
 
+    // 更新页码列表
     const getPageNumbers = () => {
         const list = [];
 
@@ -97,6 +107,7 @@ export default function A0301() {
         return list;
     };
 
+    // 更新搜索结果并重置相关状态
     const applySearchResult = useCallback((res) => {
         const list = getAdminRows(res.data);
         setAllData(list);
@@ -109,6 +120,7 @@ export default function A0301() {
         }
     }, []);
 
+    // 搜索数据（可选覆盖表单）
     const searchData = useCallback(async (overrideForm = null) => {
         try {
             const currentForm = overrideForm || searchForm;
@@ -126,16 +138,19 @@ export default function A0301() {
         }
     }, [applySearchResult, searchForm]);
 
+    // 更新搜索表单状态
     const handleSearchFormChange = (e) => {
         const { name, value } = e.target;
         setSearchForm((prev) => ({ ...prev, [name]: value }));
     };
 
+    // 点击清除按钮
     const handleClear = () => {
         setSearchForm(emptyForm);
         searchData(emptyForm);
     };
 
+    // 点击全选按钮
     const handleOriginCheckboxClick = () => {
         setCheckedList(
             isAllCurrentPageChecked
@@ -144,12 +159,14 @@ export default function A0301() {
         );
     };
 
+    // 点击复选框更新选中列表
     const handleCheckboxClick = (adminId) => {
         setCheckedList((prev) =>
             prev.includes(adminId) ? prev.filter((id) => id !== adminId) : [...prev, adminId],
         );
     };
 
+    // 点击页码跳转
     const handlePageButtonClick = (page) => {
         if (page === "..." || totalPages === 0) return;
 
@@ -162,6 +179,7 @@ export default function A0301() {
         }
     };
 
+    // 输入页码跳转
     const handleJump = () => {
         const targetPage = Number(inputPage);
 
@@ -174,6 +192,7 @@ export default function A0301() {
         setInputPage("");
     };
 
+    // 初始加载时获取数据
     useEffect(() => {
         let isMounted = true;
 
@@ -199,6 +218,7 @@ export default function A0301() {
         };
     }, [applySearchResult]);
 
+    // 全局回车事件监听，触发搜索
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === "Enter") {
@@ -212,8 +232,9 @@ export default function A0301() {
         };
     }, [searchData]);
 
+    // 返回组件
     return (
-        <div>
+        <div className="a0301">
             <div className="page-title">
                 <h1>Beework</h1>
                 <hr />
@@ -315,7 +336,7 @@ export default function A0301() {
                                                 className="buttonType0"
                                                 id="updateButton"
                                                 onClick={() => {
-                                                    window.location.href = `/A0303/${adminId}`;
+                                                    navigate(`/A0303/${adminId}`, { state: {authority: authority,adminId: adminId } });
                                                 }}
                                             >
                                                 情報修正
