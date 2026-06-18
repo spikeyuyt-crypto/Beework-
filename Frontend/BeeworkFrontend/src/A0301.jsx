@@ -223,6 +223,7 @@ export default function A0301() {
         };
     }, [searchData]);
 
+    //#region 删除逻辑整体
     const handleDelete = (userIDList) => {
         axios
             .put("http://localhost:8080/adminList/userDelete", {
@@ -248,8 +249,9 @@ export default function A0301() {
     const handleSingleDelete = (userId) => {
         handleDelete([userId]);
     }
+//#endregion
 
-    //# region 返回页面元素
+//# region 返回页面元素
     return (
         <div className="a0301">
             <div className="page-title">

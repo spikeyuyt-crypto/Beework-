@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import LabeledInput from "./components/LabeledInput.jsx";
 import Upload from "./components/Upload.jsx";
+import { toAdminUserForm } from "./utils/adminUserForm";
 
 
 export default function A0303() {
@@ -12,7 +13,7 @@ export default function A0303() {
     const location = useLocation();
     const locationState = location.state ?? {};
     const authority = locationState.authority ?? "";
-    const data = locationState.data ?? locationState;
+    const data = toAdminUserForm(locationState.data ?? locationState);
     const navigate = useNavigate();
 
     const { id } = useParams();

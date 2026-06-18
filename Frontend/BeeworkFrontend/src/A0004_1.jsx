@@ -1,11 +1,32 @@
 import LabeledInput from "./components/LabeledInput.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
 import Bee from "./assets/Bee.png";
+import axios from "axios";
 
 export default function A0004_1() {
     const navigate = useNavigate();
     const location = useLocation();
     const form = location.state;
+
+    const sendInsertData = async () => {
+        await axios.post("http://localhost:8080/adminList/auserSystemInsert", {
+            authority: "21",
+            companyId: "0",
+            countryZip: "81",
+            firstName: form.firstName,
+            firstNameKana: form.firstNameKana,
+            lastName: form.lastName,
+            lastNameKana: form.lastNameKana,
+            photoAddress: "",
+            pwd: form.pwd0,
+            repwd: form.pwd1,
+            sex: form.sex === "male" ? "1" : "2",
+            userMail: form.mail,
+            userStatus: "0",
+            userTel: form.tel,
+        });
+        navigate("/A0301");
+    };
 
     return (
         <div>
@@ -43,7 +64,7 @@ export default function A0004_1() {
                 </div>
 
                 <div className="form-actions">
-                    <input type="button" value="登録" />
+                    <input type="button" value="登録" onClick={sendInsertData} />
                     <input type="button" value="戻る" onClick={() => navigate("/A0004", { state: form })} />
                 </div>
             </div>

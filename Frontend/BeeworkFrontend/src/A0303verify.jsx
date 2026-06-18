@@ -2,19 +2,29 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import LabeledInfo from "./components/LabeledInfo.jsx";
+import { toAdminUserForm } from "./utils/adminUserForm";
+import axios from "axios";
 
 export default function A0303verify() {
     const location = useLocation();
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const form = location.state.data;
-    const authority = location.state.authority ?? form.authority ?? "";
+    const locationState = location.state ?? {};
+    const form = toAdminUserForm(locationState.data);
+    const authority = locationState.authority ?? form.authority ?? "";
 
     const authorityContent =
         authority === "admin"
             ? "システム管理者(認証済み)情報"
             : "会社会員(認証済み)情報";
+
+    const handleConfirm = async() =>{await axios.post("http://localhost:8080/adminList/userInfoUpdate", {
+        form: form
+    })
+    
+   navigate("/A0301")
+}
 
     return (
         <div className="app-form-page">
@@ -31,7 +41,7 @@ export default function A0303verify() {
 
             <label>写真</label>
 
-            <button onClick={() => navigate("/A0301")}>確認</button>
+            <button onClick={handleConfirm}>確認</button>
             <button onClick={() => navigate(`/A0303modify/${id}`, { state: { authority, data: form } })}>キャンセル</button>
         </div>
     );
