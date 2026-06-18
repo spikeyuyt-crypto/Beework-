@@ -12,5 +12,5 @@ interface UserTblMapper {
     fun userDelete(@Param("userIDs") userIDs: String): Int
     fun insertUserInto(@Param("userEntity") userEntity: UserTblEntity): Int
     fun getUserInfo(@Param("userId") userId: String): UserTblEntity
-    fun editUserInfo(@Param("form") form: A0002VueForm): Int
+    fun editUserInfo(@Param("a0002VueForm") form: A0002VueForm): Int
 }

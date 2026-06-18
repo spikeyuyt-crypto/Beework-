@@ -7,8 +7,8 @@ export const toAdminUserForm = (user = {}) => ({
     lastName: user.lastName ?? "",
     lastNameKana: user.lastNameKana ?? "",
     sex: user.sex ?? "",
-    photoAddress: user.photoAddress ?? "",
+    photoAddress: user.photoAddress ?? user.userPhoto ?? "",
     authority: user.authority ?? "",
     userStatus: user.userStatus ?? "",
-    countryZip: user.countryZip ?? "",
+    countryZip: user.countryZip ?? user.phoneCountryCode ?? "",
 });

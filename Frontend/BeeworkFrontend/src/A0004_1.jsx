@@ -2,6 +2,7 @@ import LabeledInput from "./components/LabeledInput.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
 import Bee from "./assets/Bee.png";
 import axios from "axios";
+import Upload from "./components/Upload.jsx";
 
 export default function A0004_1() {
     const navigate = useNavigate();
@@ -12,12 +13,12 @@ export default function A0004_1() {
         await axios.post("http://localhost:8080/adminList/auserSystemInsert", {
             authority: "21",
             companyId: "0",
-            countryZip: "81",
+            phoneCountryCode: "81",
             firstName: form.firstName,
             firstNameKana: form.firstNameKana,
             lastName: form.lastName,
             lastNameKana: form.lastNameKana,
-            photoAddress: "",
+            userPhoto: form.photoAddress ?? "",
             pwd: form.pwd0,
             repwd: form.pwd1,
             sex: form.sex === "male" ? "1" : "2",
@@ -61,6 +62,7 @@ export default function A0004_1() {
                 <div className="form-upload-row">
                     <span></span>
                     <label className="form-row-label">写真</label>
+                    <Upload value={form.photoAddress} disabled={true} />
                 </div>
 
                 <div className="form-actions">

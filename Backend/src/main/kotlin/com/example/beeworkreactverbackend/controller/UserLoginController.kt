@@ -19,7 +19,7 @@ class UserLoginController(
     @PostMapping("/auserSystemInsert")
     fun login(@Validated @RequestBody userEntity: A0002VueForm): CommonResult {
         val userTblEntity = UserTblEntity(
-            userCd = userEntity.userCd,
+            userCd = userEntity.userId,
             pwd = userEntity.pwd,
             companyId = userEntity.companyId,
             authority = userEntity.authority,
@@ -27,12 +27,12 @@ class UserLoginController(
             lastName = userEntity.lastName,
             lastNameKana = userEntity.lastNameKana,
             firstName = userEntity.firstName,
-            countryZip = userEntity.countryZip,
+            countryZip = userEntity.phoneCountryCode,
             userMail = userEntity.userMail,
             userTel = userEntity.userTel,
             sex = userEntity.sex,
             userStatus = userEntity.userStatus,
-            photoAddress = userEntity.photoAddress
+            photoAddress = userEntity.userPhoto
             )
         adminSystemRegisterService.insertUserInto(userTblEntity)
         return CommonResult.success("操作成功", null)

@@ -703,6 +703,50 @@ div#jumpToPageInput input,
   background-color: #dbeafe;
 }
 
+.upload-preview,
+.info-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.info-photo {
+  width: 160px;
+  height: 120px;
+  border-radius: var(--radius-md);
+}
+
+.photo-info-row {
+  display: grid;
+  grid-template-columns: 10px minmax(130px, 190px) minmax(0, 1fr);
+  align-items: start;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.photo-info-label {
+  grid-column: 2;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding-top: 0.45rem;
+}
+
+.photo-info-frame {
+  grid-column: 3;
+  width: 168px;
+  padding: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: #f8fafc;
+}
+
+.photo-info-empty {
+  grid-column: 3;
+}
+
 .app-form-page button,
 .A0004 input[type="button"],
 .A0004_1 input[type="button"] {

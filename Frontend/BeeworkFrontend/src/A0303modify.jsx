@@ -36,6 +36,13 @@ export default function A0303() {
         }));
     };
 
+    const handlePhotoChange = (photoAddress) => {
+        setForm((prevForm) => ({
+            ...prevForm,
+            photoAddress,
+        }));
+    };
+
     const handleNextPage = () => {
     const requiredFields = [
         "mail",
@@ -75,8 +82,9 @@ export default function A0303() {
             <LabeledInput label="姓" name="lastName" value={form.lastName?? ""} onChange= {handleOnChange} isRequired={true}></LabeledInput>
             <LabeledInput label="姓（カナ）"name="lastNameKana" value={form.lastNameKana?? ""} onChange={ handleOnChange} isRequired={true}></LabeledInput>
             <LabeledInput label="性別" name="sex" value={form.sex?? ""} onChange={handleOnChange} isRequired={true}></LabeledInput>
+            <LabeledInput label="電話番号(国番号)" name="countryZip" value={form.countryZip?? ""} onChange={ handleOnChange}></LabeledInput>
             <LabeledInput label="電話番号" name="tel" value={form.tel?? ""} onChange={ handleOnChange} isRequired={true}></LabeledInput>
-            <Upload >写真</Upload>
+            <Upload value={form.photoAddress} onChange={handlePhotoChange}>写真</Upload>
             <button onClick={() => handleNextPage()}>保存</button>
             <button onClick={() => navigate("/A0301")}>キャンセル</button>
         </div>

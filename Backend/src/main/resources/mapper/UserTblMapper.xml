@@ -110,7 +110,7 @@
         WHERE USER_CD = #{userId}
     </select>
 
-    <update id="updateUserInfo" >
+    <update id="editUserInfo" >
         UPDATE
         USER_TBL
         SET
@@ -129,18 +129,18 @@
         <if test="a0002VueForm.sex != null and a0002VueForm.sex != ''">
             SEX = #{a0002VueForm.sex},
         </if>
-        <if test="a0002VueForm.countryZip != null and a0002VueForm.countryZip != ''">
-            COUNTRY_ZIP = #{a0002VueForm.countryZip},
+        <if test="a0002VueForm.phoneCountryCode != null and a0002VueForm.phoneCountryCode != ''">
+            COUNTRY_ZIP = #{a0002VueForm.phoneCountryCode},
         </if>
         <if test="a0002VueForm.userTel != null and a0002VueForm.userTel != ''">
             USER_TEL = #{a0002VueForm.userTel},
         </if>
-        <if test="a0002VueForm.photoAddress != null and a0002VueForm.photoAddress != ''">
-            PHOTO_ADDRESS = #{a0002VueForm.photoAddress},
+        <if test="a0002VueForm.userPhoto != null and a0002VueForm.userPhoto != ''">
+            PHOTO_ADDRESS = #{a0002VueForm.userPhoto},
         </if>
         UPDATE_TIME = CURRENT_TIMESTAMP(0)
         WHERE
-        USER_CD = #{a0002VueForm.userCd}
+        USER_CD = #{a0002VueForm.userId}
 
     </update>
 

@@ -18,7 +18,7 @@ export default function A0004() {
         lastNameKana: "",
         sex: "male",
         tel: "",
-        img: null,
+        photoAddress: "",
     };
 
     const formData = location.state || defaultForm;
@@ -59,6 +59,13 @@ export default function A0004() {
         navigate("/A0004_1", { state: form });
     };
 
+    const handlePhotoChange = (photoAddress) => {
+        setForm((prevForm) => ({
+            ...prevForm,
+            photoAddress,
+        }));
+    };
+
     return (
         <div>
             <div className="A0004" id="A0004Grid">
@@ -92,7 +99,7 @@ export default function A0004() {
                 <div className="form-upload-row">
                     <label className="labeled-input-asterisk">※</label>
                     <label className="form-row-label">写真</label>
-                    <Upload />
+                    <Upload value={form.photoAddress} onChange={handlePhotoChange} />
                 </div>
 
                 <div className="form-actions">
