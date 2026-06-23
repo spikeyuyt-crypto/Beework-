@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import LabeledInfo from "./components/LabeledInfo.jsx";
 import { toAdminUserForm } from "./utils/adminUserForm";
 import axios from "axios";
+import { getCountryLabel } from "./utils/countryOptions";
 
 export default function A0303verify() {
     const location = useLocation();
@@ -20,7 +21,7 @@ export default function A0303verify() {
             : "会社会員(認証済み)情報";
 
     const handleConfirm = async () => {
-        await axios.post("http://localhost:8080/adminList/userInfoUpdate", {
+        await axios.post("/adminList/userInfoUpdate", {
             userId: id,
             phoneCountryCode: form.countryZip,
             firstName: form.firstName,
@@ -50,8 +51,7 @@ export default function A0303verify() {
             <LabeledInfo label="姓" value={form.lastName} />
             <LabeledInfo label="姓（カナ）" value={form.lastNameKana} />
             <LabeledInfo label="性別" value={form.sex} />
-            <LabeledInfo label="電話番号(国番号)" value={form.countryZip} />
-            <LabeledInfo label="電話番号" value={form.tel} />
+            <LabeledInfo label="電話番号" value={`${getCountryLabel(form.countryZip)} ${form.tel}`} />
             <div className="photo-info-row">
                 <span></span>
                 <span className="photo-info-label">写真</span>

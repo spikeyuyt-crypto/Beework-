@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Bee from "./assets/Bee.png";
 import axios from "axios";
 import Upload from "./components/Upload.jsx";
+import { getCountryLabel } from "./utils/countryOptions";
 
 export default function A0004_1() {
     const navigate = useNavigate();
@@ -10,10 +11,10 @@ export default function A0004_1() {
     const form = location.state;
 
     const sendInsertData = async () => {
-        await axios.post("http://localhost:8080/adminList/auserSystemInsert", {
+        await axios.post("/adminList/auserSystemInsert", {
             authority: "21",
             companyId: "0",
-            phoneCountryCode: "81",
+            phoneCountryCode: form.countryZip,
             firstName: form.firstName,
             firstNameKana: form.firstNameKana,
             lastName: form.lastName,
@@ -57,7 +58,7 @@ export default function A0004_1() {
                     </label>
                 </div>
 
-                <LabeledInput label="電話番号" type="text" name="tel" value={form.tel} disabled={true} />
+                <LabeledInput label="電話番号" type="text" name="tel" value={`${getCountryLabel(form.countryZip)} ${form.tel}`} disabled={true} />
 
                 <div className="form-upload-row">
                     <span></span>

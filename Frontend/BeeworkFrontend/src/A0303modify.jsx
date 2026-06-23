@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import LabeledInput from "./components/LabeledInput.jsx";
+import LabeledPhoneInput from "./components/LabeledPhoneInput.jsx";
 import Upload from "./components/Upload.jsx";
 import { toAdminUserForm } from "./utils/adminUserForm";
+import { countryOptions } from "./utils/countryOptions";
 
 
 export default function A0303() {
@@ -51,6 +53,7 @@ export default function A0303() {
         "sex",
         "lastName",
         "lastNameKana",
+        "countryZip",
         "tel",
     ];
 
@@ -82,8 +85,16 @@ export default function A0303() {
             <LabeledInput label="姓" name="lastName" value={form.lastName?? ""} onChange= {handleOnChange} isRequired={true}></LabeledInput>
             <LabeledInput label="姓（カナ）"name="lastNameKana" value={form.lastNameKana?? ""} onChange={ handleOnChange} isRequired={true}></LabeledInput>
             <LabeledInput label="性別" name="sex" value={form.sex?? ""} onChange={handleOnChange} isRequired={true}></LabeledInput>
-            <LabeledInput label="電話番号(国番号)" name="countryZip" value={form.countryZip?? ""} onChange={ handleOnChange}></LabeledInput>
-            <LabeledInput label="電話番号" name="tel" value={form.tel?? ""} onChange={ handleOnChange} isRequired={true}></LabeledInput>
+            <LabeledPhoneInput
+                label="電話番号"
+                countryName="countryZip"
+                countryValue={form.countryZip ?? "81"}
+                phoneName="tel"
+                phoneValue={form.tel ?? ""}
+                options={countryOptions}
+                onChange={handleOnChange}
+                isRequired={true}
+            />
             <Upload value={form.photoAddress} onChange={handlePhotoChange}>写真</Upload>
             <button onClick={() => handleNextPage()}>保存</button>
             <button onClick={() => navigate("/A0301")}>キャンセル</button>

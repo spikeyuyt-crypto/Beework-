@@ -626,6 +626,30 @@ div#jumpToPageInput input,
   grid-column: 3;
 }
 
+.labeled-phone-input .phone-input-group {
+  grid-column: 3;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 0.5rem;
+}
+
+.phone-input-group .labeled-input-input {
+  grid-column: auto;
+}
+
+.phone-country-select {
+  width: 100%;
+  min-height: 36px;
+  padding: 0 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: #f8fafc;
+  color: var(--text-main);
+  font: inherit;
+  font-size: 0.9rem;
+  transition: var(--transition-smooth);
+}
+
 .labeled-info .label {
   grid-column: 2;
 }
@@ -645,7 +669,10 @@ div#jumpToPageInput input,
 .A0004 input[type="text"],
 .A0004 input[type="password"],
 .A0004_1 input[type="text"],
-.A0004_1 input[type="password"] {
+.A0004_1 input[type="password"],
+.A0004 select,
+.A0004_1 select,
+.app-form-page select {
   width: 100%;
   min-height: 36px;
   padding: 0 0.75rem;
@@ -659,8 +686,12 @@ div#jumpToPageInput input,
 }
 
 .labeled-input-input:focus,
+.phone-country-select:focus,
 .A0004 input[type="text"]:focus,
-.A0004 input[type="password"]:focus {
+.A0004 input[type="password"]:focus,
+.A0004 select:focus,
+.A0004_1 select:focus,
+.app-form-page select:focus {
   outline: none;
   border-color: var(--primary-color);
   background-color: var(--card-bg);
@@ -817,6 +848,11 @@ div#jumpToPageInput input,
   .labeled-input-input,
   .labeled-info .value {
     grid-column: 2;
+  }
+
+  .labeled-phone-input .phone-input-group {
+    grid-column: 2;
+    grid-template-columns: minmax(120px, 150px) minmax(0, 1fr);
   }
 
   .upload-div {

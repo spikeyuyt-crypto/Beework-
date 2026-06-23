@@ -1,8 +1,10 @@
 import { useCallback, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import LabeledInput from "./components/LabeledInput.jsx";
+import LabeledPhoneInput from "./components/LabeledPhoneInput.jsx";
 import Bee from "./assets/Bee.png";
 import Upload from "./components/Upload.jsx";
+import { countryOptions } from "./utils/countryOptions";
 
 export default function A0004() {
     const navigate = useNavigate();
@@ -17,6 +19,7 @@ export default function A0004() {
         lastName: "",
         lastNameKana: "",
         sex: "male",
+        countryZip: "81",
         tel: "",
         photoAddress: "",
     };
@@ -41,6 +44,7 @@ export default function A0004() {
             "firstNameKana",
             "lastName",
             "lastNameKana",
+            "countryZip",
             "tel",
         ];
 
@@ -94,7 +98,16 @@ export default function A0004() {
                     </label>
                 </div>
 
-                <LabeledInput label="電話番号" type="text" name="tel" value={form.tel} isRequired={true} onChange={handleInputChange} />
+                <LabeledPhoneInput
+                    label="電話番号"
+                    countryName="countryZip"
+                    countryValue={form.countryZip}
+                    phoneName="tel"
+                    phoneValue={form.tel}
+                    options={countryOptions}
+                    isRequired={true}
+                    onChange={handleInputChange}
+                />
 
                 <div className="form-upload-row">
                     <label className="labeled-input-asterisk">※</label>

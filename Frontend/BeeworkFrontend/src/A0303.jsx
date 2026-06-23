@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import LabeledInfo from './components/LabeledInfo';
 import { toAdminUserForm } from './utils/adminUserForm';
+import { getCountryLabel } from './utils/countryOptions';
 
 export default function A0303() {
 
@@ -29,7 +30,7 @@ export default function A0303() {
     const getUserInfo = async () => {
         const userId = id;
         const response = await axios.post(
-            "http://localhost:8080/adminList/getUserInfo",
+            "/adminList/getUserInfo",
             {
                 userId: userId,
             }
@@ -56,8 +57,7 @@ export default function A0303() {
             <LabeledInfo label="姓" value={data.lastName }></LabeledInfo>
             <LabeledInfo label="姓（カナ）" value={data.lastNameKana }></LabeledInfo>
             <LabeledInfo label="性別" value={data.sex }></LabeledInfo>
-            <LabeledInfo label="電話番号(国番号)" value={data.countryZip }></LabeledInfo>
-            <LabeledInfo label="電話番号" value={data.tel }></LabeledInfo>
+            <LabeledInfo label="電話番号" value={`${getCountryLabel(data.countryZip)} ${data.tel ?? ""}`}></LabeledInfo>
             <LabeledInfo label="写真" value={data.photoAddress ? <img className="info-photo" src={data.photoAddress} alt="写真" /> : ""}></LabeledInfo>
             <button onClick={() => navigate(`/A0303modify/${id}`, { state: { authority, data } })}>修正</button>
             <button onClick={() => navigate("/A0301")}>戻る</button>

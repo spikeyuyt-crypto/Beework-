@@ -122,7 +122,7 @@ export default function A0301() {
     const searchData = useCallback(async (overrideForm = null) => {
         try {
             const currentForm = overrideForm || searchForm;
-            const res = await axios.post("http://localhost:8080/adminList/search", {
+            const res = await axios.post("/adminList/search", {
                 authority: "0",
                 userName: currentForm.kname,
                 userMail: currentForm.mail,
@@ -190,7 +190,7 @@ export default function A0301() {
     useEffect(() => {
         let isMounted = true;
         axios
-            .post("http://localhost:8080/adminList/search", {
+            .post("/adminList/search", {
                 authority: "0",
                 userName: emptyForm.kname,
                 userMail: emptyForm.mail,
@@ -226,7 +226,7 @@ export default function A0301() {
     //#region 删除逻辑整体
     const handleDelete = (userIDList) => {
         axios
-            .put("http://localhost:8080/adminList/userDelete", {
+            .put("/adminList/userDelete", {
                 userIDList: userIDList,
             })
             .then((res) => {
